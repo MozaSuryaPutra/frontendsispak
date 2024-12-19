@@ -21,8 +21,8 @@ const NavigationBar = () => {
     const getProfile = async () => {
       try {
         const result = await profile(token);
-        if (result.success) {
-          dispatch(setUser(result.data));
+        if (result?.success) {
+          dispatch(setUser(result?.data));
         } else {
           handleLogout();
         }

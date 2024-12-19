@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useSelector } from "react-redux";
-import { deleteType, getType } from "../../service/carType";
+import { deletePenyakit, getPenyakit } from "../../service/penyakit";
 import { useMutation } from "@tanstack/react-query";
 
 const TableContainer = styled.div`
@@ -127,16 +127,16 @@ const PenyakitTable = ({ penyakit, setPenyakit }) => {
   const { user } = useSelector((state) => state.auth);
 
   const { mutate: deleting, isPending: isDeleteProcessing } = useMutation({
-    mutationFn: deleteType,
+    mutationFn: deletePenyakit,
     onSuccess: async () => {
-      toast.success("Type deleted successfully!");
+      toast.success("Penyakit deleted successfully!");
 
       // Refresh data after deletion
-      const refreshedTypes = await getType();
-      setPenyakit(refreshedTypes || []);
+      const refreshedModels = await getPenyakit();
+      setPenyakit(refreshedModels || []);
     },
     onError: (error) => {
-      toast.error(error?.message || "Error deleting type");
+      toast.error(error?.message || "Error deleting Penyakit");
     },
   });
 
@@ -158,7 +158,7 @@ const PenyakitTable = ({ penyakit, setPenyakit }) => {
   };
 
   const handleEdit = (id) => {
-    navigate({ to: `/admin/types/edit/${id}` });
+    navigate({ to: `/admin/penyakit/edit/${id}` });
   };
 
   return (
@@ -178,7 +178,7 @@ const PenyakitTable = ({ penyakit, setPenyakit }) => {
             <TableRow key={penyakit.id}>
               <TableCell>{penyakit.id}</TableCell>
               <TableCell>{penyakit.nama}</TableCell>
-              <TableCell>{penyakit.deskripsi} seats</TableCell>
+              <TableCell>{penyakit.deskripsi}</TableCell>
               <TableCell>{penyakit.solusi}</TableCell>
               {user?.role_id === 1 && (
                 <TableCell>

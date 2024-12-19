@@ -5,19 +5,19 @@ import { useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { getModels } from "../../../service/models";
+import { getGejala } from "../../../service/gejala";
 import ModelsTable from "../../../components/ModelsTable";
 import { useQuery } from "@tanstack/react-query";
 import Protected from "../../../components/Auth/Protected";
-export const Route = createLazyFileRoute("/admin/models/")({
+export const Route = createLazyFileRoute("/admin/gejala/")({
   component: () => (
     <Protected roles={[1]}>
-      <Models />
+      <Gejala />
     </Protected>
   ),
 });
 
-function Models() {
+function Gejala() {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
 
@@ -26,8 +26,8 @@ function Models() {
   const navigate = useNavigate();
 
   const { data, isSuccess, isPending } = useQuery({
-    queryKey: ["models"],
-    queryFn: () => getModels(),
+    queryKey: ["gejala"],
+    queryFn: () => getGejala(),
     enabled: !!token,
   });
 
@@ -59,7 +59,7 @@ function Models() {
             className="me-2"
             style={{ width: "160px", marginLeft: "auto" }}
             onClick={() => {
-              navigate({ to: "/admin/models/create" });
+              navigate({ to: "/admin/gejala/create" });
             }}
           >
             Buat Model Baru

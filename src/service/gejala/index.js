@@ -1,4 +1,4 @@
-export const getModels = async () => {
+export const getGejala = async () => {
   const token = localStorage.getItem("token");
 
   let url = `${import.meta.env.VITE_API_URL}/gejala`;
@@ -15,7 +15,7 @@ export const getModels = async () => {
   return result?.data;
 };
 
-export const getModelsById = async (id) => {
+export const getGejalaById = async (id) => {
   const token = localStorage.getItem("token");
 
   let url = `${import.meta.env.VITE_API_URL}/gejala/${id}`;
@@ -32,7 +32,7 @@ export const getModelsById = async (id) => {
   return result?.data;
 };
 
-export const createModels = async (request) => {
+export const createGejala = async (request) => {
   const token = localStorage.getItem("token");
   const formData = new FormData();
   formData.append("nama", request.nama);
@@ -49,7 +49,7 @@ export const createModels = async (request) => {
   return result?.data;
 };
 
-export const updateModels = async (id, request) => {
+export const updateGejala = async (id, request) => {
   const token = localStorage.getItem("token");
   const formData = new FormData();
   formData.append("nama", request.nama);
@@ -66,7 +66,7 @@ export const updateModels = async (id, request) => {
   return result?.data;
 };
 
-export const deleteModels = async (id) => {
+export const deleteGejala = async (id) => {
   const token = localStorage.getItem("token");
 
   let url = `${import.meta.env.VITE_API_URL}/gejala/${id}`;
@@ -80,5 +80,8 @@ export const deleteModels = async (id) => {
 
   // get data
   const result = await response.json();
+  if (!response.ok) {
+    throw new Error("Masih Ada Gejala Terkait di Database");
+  }
   return result?.data;
 };

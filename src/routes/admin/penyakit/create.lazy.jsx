@@ -5,31 +5,31 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { createType } from "../../../service/carType";
+import { createPenyakit } from "../../../service/penyakit";
 import { toast } from "react-toastify";
 import Protected from "../../../components/Auth/Protected";
 import { useMutation } from "@tanstack/react-query";
 
-export const Route = createLazyFileRoute("/admin/types/create")({
+export const Route = createLazyFileRoute("/admin/penyakit/create")({
   component: () => (
     <Protected roles={[1]}>
-      <CreateTypes />
+      <CreatesPenyakit />
     </Protected>
   ),
 });
 
-function CreateTypes() {
+function CreatesPenyakit() {
   const [nama, setNama] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
   const [solusi, setSolusi] = useState("");
   const navigate = useNavigate();
-  const { mutate: createCarType } = useMutation({
+  const { mutate: createPenyakits } = useMutation({
     mutationFn: (body) => {
-      return createType(body);
+      return createPenyakit(body);
     },
     onSuccess: () => {
       toast.success("Penyakit Berhasil Dibuat!");
-      navigate({ to: "/admin/types" });
+      navigate({ to: "/admin/penyakit" });
     },
     onError: (err) => {
       toast.error(err?.message);
@@ -45,7 +45,7 @@ function CreateTypes() {
       solusi: solusi,
     };
 
-    createCarType(result);
+    createPenyakits(result);
   };
 
   return (
@@ -58,7 +58,7 @@ function CreateTypes() {
             marginRight: "auto",
           }}
           onClick={() => {
-            navigate({ to: "/admin/types" });
+            navigate({ to: "/admin/penyakit" });
           }}
         >
           Back
@@ -68,7 +68,7 @@ function CreateTypes() {
       <Row className="mt-5">
         <Col className="offset-md-3">
           <Card>
-            <Card.Header className="text-center">Create Types</Card.Header>
+            <Card.Header className="text-center">Create Penyakit</Card.Header>
             <Card.Body>
               <Form onSubmit={onSubmit}>
                 <Form.Group as={Row} className="mb-3" controlId="nama">

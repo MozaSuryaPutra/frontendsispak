@@ -5,7 +5,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { deleteModels, getModels } from "../../service/models";
+import { deleteGejala, getGejala } from "../../service/gejala";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
@@ -128,16 +128,16 @@ const ModelsTable = ({ gejala, setgejala }) => {
   const { user } = useSelector((state) => state.auth);
 
   const { mutate: deleting, isPending: isDeleteProcessing } = useMutation({
-    mutationFn: deleteModels,
+    mutationFn: deleteGejala,
     onSuccess: async () => {
-      toast.success("Type deleted successfully!");
+      toast.success("Gejala deleted successfully!");
 
       // Refresh data after deletion
-      const refreshedTypes = await getModels();
+      const refreshedTypes = await getGejala();
       setgejala(refreshedTypes);
     },
     onError: (error) => {
-      toast.error(error?.message || "Error deleting type");
+      toast.error(error?.message || "Error deleting Gejala");
     },
   });
 
@@ -159,7 +159,7 @@ const ModelsTable = ({ gejala, setgejala }) => {
   };
 
   const handleEdit = (id) => {
-    navigate({ to: `/admin/models/edit/${id}` });
+    navigate({ to: `/admin/gejala/edit/${id}` });
   };
 
   return (

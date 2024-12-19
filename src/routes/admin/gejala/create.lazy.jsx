@@ -5,41 +5,41 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { getType } from "../../../service/carType";
-import { createModels } from "../../../service/models";
+//import { getType } from "../../../service/carType";
+import { createGejala } from "../../../service/gejala";
 import Protected from "../../../components/Auth/Protected";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 
-export const Route = createLazyFileRoute("/admin/models/create")({
+export const Route = createLazyFileRoute("/admin/gejala/create")({
   component: () => (
     <Protected roles={[1]}>
-      <CreateModel />
+      <CreatesGejala />
     </Protected>
   ),
 });
 
-function CreateModel() {
+function CreatesGejala() {
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
 
   const [nama, setnama] = useState("");
 
-  const { mutate: createCarModels } = useMutation({
+  const { mutate: createGejalas } = useMutation({
     mutationFn: (body) => {
-      return createModels(body);
+      return createGejala(body);
     },
     onSuccess: () => {
       toast.success("Type created successfully!");
-      navigate({ to: "/admin/models" });
+      navigate({ to: "/admin/gejala" });
     },
     onError: (err) => {
       toast.error(err?.message);
     },
   });
-  // Add new empty spec and option
+  // Add new
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -49,7 +49,7 @@ function CreateModel() {
       nama: nama,
     };
 
-    createCarModels(result);
+    createGejalas(result);
   };
 
   return (
@@ -62,7 +62,7 @@ function CreateModel() {
             marginRight: "auto",
           }}
           onClick={() => {
-            navigate({ to: "/admin/models" });
+            navigate({ to: "/admin/gejala" });
           }}
         >
           Back
@@ -104,4 +104,4 @@ function CreateModel() {
   );
 }
 
-export default CreateModel;
+export default CreatesGejala;

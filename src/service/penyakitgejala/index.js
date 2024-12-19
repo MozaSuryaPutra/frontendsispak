@@ -1,4 +1,4 @@
-export const getCars = async () => {
+export const getPenyakitGejala = async () => {
   const token = localStorage.getItem("token");
 
   let url = `${import.meta.env.VITE_API_URL}/gejalaPenyakit`;
@@ -15,10 +15,10 @@ export const getCars = async () => {
   return result?.data;
 };
 
-export const getCarsById = async (id) => {
+export const getPenyakitGejalaById = async (id) => {
   const token = localStorage.getItem("token");
 
-  let url = `${import.meta.env.VITE_API_URL}/cars/${id}`;
+  let url = `${import.meta.env.VITE_API_URL}/gejalaPenyakit/${id}`;
 
   const response = await fetch(url, {
     headers: {
@@ -32,7 +32,7 @@ export const getCarsById = async (id) => {
   return result?.data;
 };
 
-export const createCars = async (request) => {
+export const createPenyakitGejala = async (request) => {
   const token = localStorage.getItem("token");
   const formData = new FormData();
   formData.append("cf", request.cf);
@@ -51,14 +51,17 @@ export const createCars = async (request) => {
   );
 
   const result = await response.json();
+  if (!response.ok) {
+    throw new Error(result?.message);
+  }
   return result?.data;
 };
 
-export const updateCars = async (id, request) => {
+export const updatePenyakitGejala = async (id, request) => {
   const token = localStorage.getItem("token");
   const formData = new FormData();
   formData.append("plate", request.plate);
-  formData.append("carsmodels_id", request.carsmodels_id);
+  formData.append("PenyakitGejalamodels_id", request.PenyakitGejalamodels_id);
   formData.append("rentPerDay", request.rentPerDay);
   formData.append("availableAt", request.availableAt);
   formData.append("available", request.available);
@@ -67,19 +70,22 @@ export const updateCars = async (id, request) => {
     formData.append("image", request.image);
   }
 
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/cars/${id}`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-    method: "PUT",
-    body: formData,
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/gejalaPenyakit/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      method: "PUT",
+      body: formData,
+    }
+  );
 
   const result = await response.json();
   return result?.data;
 };
 
-export const deleteCars = async (id) => {
+export const deletePenyakitGejala = async (id) => {
   const token = localStorage.getItem("token");
 
   let url = `${import.meta.env.VITE_API_URL}/gejalaPenyakit/${id}`;
@@ -93,10 +99,13 @@ export const deleteCars = async (id) => {
 
   // get data
   const result = await response.json();
+  if (!response.ok) {
+    throw new Error("Masih Ada Penyakit Geja;a Terkait di Database");
+  }
   return result;
 };
 
-export const getCarsSearched = async (capacity, availableAt) => {
+export const getPenyakitGejalaSearched = async (capacity, availableAt) => {
   console.log("Capacity:", capacity);
   console.log("AvailableAt:", availableAt);
 
@@ -110,7 +119,7 @@ export const getCarsSearched = async (capacity, availableAt) => {
     params.append("availableAt", availableAt);
   }
 
-  let url = `${import.meta.env.VITE_API_URL}/cars/search?${params.toString()}`;
+  let url = `${import.meta.env.VITE_API_URL}/gejalaPenyakit/search?${params.toString()}`;
 
   const response = await fetch(url, {
     headers: {

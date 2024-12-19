@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import { getModels } from "../service/models";
+import { getGejala } from "../service/gejala";
 import SearchCard from "../components/SearchCard";
 import FooterSection from "../components/FooterSection";
 import { useSelector } from "react-redux";
@@ -27,8 +27,8 @@ function CariMobil() {
     isError,
     isSuccess,
   } = useQuery({
-    queryKey: ["models"],
-    queryFn: () => getModels(),
+    queryKey: ["gejala"],
+    queryFn: () => getGejala(),
     enabled: !!token,
   });
 

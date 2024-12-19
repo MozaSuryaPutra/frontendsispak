@@ -34,6 +34,7 @@ function Login() {
       return login(body);
     },
     onSuccess: (data) => {
+      console.log(data);
       // set token to global state
       dispatch(setToken(data?.token));
 
@@ -115,7 +116,7 @@ function Login() {
           className="d-none d-md-block"
         >
           <img
-            src="/login-page.png"
+            src="/gambardokter.png"
             alt="Login Page"
             style={{
               width: "100%",

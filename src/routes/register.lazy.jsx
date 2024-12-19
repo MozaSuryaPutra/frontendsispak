@@ -62,6 +62,7 @@ function Register() {
       password,
       profilePicture,
     };
+    console.log(request);
     registerUser(request);
   };
 
@@ -172,7 +173,7 @@ function Register() {
           className="d-none d-md-block"
         >
           <img
-            src="/login-page.png"
+            src="/gambardokter.png"
             alt="Login Page"
             style={{
               width: "100%",

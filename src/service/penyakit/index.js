@@ -1,4 +1,4 @@
-export const getType = async () => {
+export const getPenyakit = async () => {
   const token = localStorage.getItem("token");
 
   let url = `${import.meta.env.VITE_API_URL}/penyakit`;
@@ -15,7 +15,7 @@ export const getType = async () => {
   return result?.data;
 };
 
-export const getTypeById = async (id) => {
+export const getPenyakitById = async (id) => {
   const token = localStorage.getItem("token");
 
   let url = `${import.meta.env.VITE_API_URL}/penyakit/${id}`;
@@ -32,7 +32,7 @@ export const getTypeById = async (id) => {
   return result?.data;
 };
 
-export const createType = async (request) => {
+export const createPenyakit = async (request) => {
   const token = localStorage.getItem("token");
   const formData = new FormData();
   formData.append("nama", request.nama);
@@ -51,7 +51,7 @@ export const createType = async (request) => {
   return result?.data;
 };
 
-export const updateType = async (id, request) => {
+export const updatePenyakit = async (id, request) => {
   const token = localStorage.getItem("token");
   const formData = new FormData();
   formData.append("nama", request.nama);
@@ -76,19 +76,25 @@ export const updateType = async (id, request) => {
   return result?.data;
 };
 
-export const deleteType = async (id) => {
+export const deletePenyakit = async (id) => {
   const token = localStorage.getItem("token");
 
-  let url = `${import.meta.env.VITE_API_URL}/penyakit/${id}`;
+  // let url = `${import.meta.env.VITE_API_URL}/penyakit/${id}`;
 
-  const response = await fetch(url, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-    method: "DELETE",
-  });
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/penyakit/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      method: "DELETE",
+    }
+  );
 
   // get data
   const result = await response.json();
-  return result?.data;
+  if (!response.ok) {
+    throw new Error("Masih Ada Diagnosis Terkait di Database");
+  }
+  return result;
 };

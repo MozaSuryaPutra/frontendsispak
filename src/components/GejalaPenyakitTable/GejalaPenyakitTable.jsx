@@ -5,7 +5,10 @@ import { useNavigate } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { deleteCars, getCars } from "../../service/cars";
+import {
+  deletePenyakitGejala,
+  getPenyakitGejala,
+} from "../../service/penyakitgejala";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
@@ -128,16 +131,16 @@ const gejalaPenyakitPenyakitTable = ({ gejalaPenyakit, setGejalaPenyakit }) => {
   const { user } = useSelector((state) => state.auth);
 
   const { mutate: deleting, isPending: isDeleteProcessing } = useMutation({
-    mutationFn: deleteCars,
+    mutationFn: deletePenyakitGejala,
     onSuccess: async () => {
-      toast.success("Type deleted successfully!");
+      toast.success("Penyakit Gejala deleted successfully!");
 
       // Refresh data after deletion
-      const refreshedTypes = await getCars();
+      const refreshedTypes = await getPenyakitGejala();
       setGejalaPenyakit(refreshedTypes);
     },
     onError: (error) => {
-      toast.error(error?.message || "Error deleting type");
+      toast.error(error?.message || "Error deleting Penyakit Gejala");
     },
   });
 
@@ -156,10 +159,6 @@ const gejalaPenyakitPenyakitTable = ({ gejalaPenyakit, setGejalaPenyakit }) => {
         },
       ],
     });
-  };
-
-  const handleEdit = (id) => {
-    navigate({ to: `/admin/cars/edit/${id}` });
   };
 
   return (

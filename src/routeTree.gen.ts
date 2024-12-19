@@ -22,17 +22,22 @@ const ProfileLazyImport = createFileRoute('/profile')()
 const LoginLazyImport = createFileRoute('/login')()
 const IndexLazyImport = createFileRoute('/')()
 const AdminIndexLazyImport = createFileRoute('/admin/')()
-const CarsIdLazyImport = createFileRoute('/cars/$id')()
-const AdminTypesIndexLazyImport = createFileRoute('/admin/types/')()
-const AdminModelsIndexLazyImport = createFileRoute('/admin/models/')()
-const AdminCarsIndexLazyImport = createFileRoute('/admin/cars/')()
-const AdminTypesCreateLazyImport = createFileRoute('/admin/types/create')()
-const AdminModelsCreateLazyImport = createFileRoute('/admin/models/create')()
-const AdminCarsCreateLazyImport = createFileRoute('/admin/cars/create')()
-const AdminCarsIdLazyImport = createFileRoute('/admin/cars/$id')()
-const AdminTypesEditIdLazyImport = createFileRoute('/admin/types/edit/$id')()
-const AdminModelsEditIdLazyImport = createFileRoute('/admin/models/edit/$id')()
-const AdminCarsEditIdLazyImport = createFileRoute('/admin/cars/edit/$id')()
+const AdminPenyakitgejalaIndexLazyImport = createFileRoute(
+  '/admin/penyakitgejala/',
+)()
+const AdminPenyakitIndexLazyImport = createFileRoute('/admin/penyakit/')()
+const AdminGejalaIndexLazyImport = createFileRoute('/admin/gejala/')()
+const AdminPenyakitgejalaCreateLazyImport = createFileRoute(
+  '/admin/penyakitgejala/create',
+)()
+const AdminPenyakitCreateLazyImport = createFileRoute(
+  '/admin/penyakit/create',
+)()
+const AdminGejalaCreateLazyImport = createFileRoute('/admin/gejala/create')()
+const AdminPenyakitEditIdLazyImport = createFileRoute(
+  '/admin/penyakit/edit/$id',
+)()
+const AdminGejalaEditIdLazyImport = createFileRoute('/admin/gejala/edit/$id')()
 
 // Create/Update Routes
 
@@ -72,90 +77,70 @@ const AdminIndexLazyRoute = AdminIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
 
-const CarsIdLazyRoute = CarsIdLazyImport.update({
-  id: '/cars/$id',
-  path: '/cars/$id',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/cars/$id.lazy').then((d) => d.Route))
+const AdminPenyakitgejalaIndexLazyRoute =
+  AdminPenyakitgejalaIndexLazyImport.update({
+    id: '/admin/penyakitgejala/',
+    path: '/admin/penyakitgejala/',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/admin/penyakitgejala/index.lazy').then((d) => d.Route),
+  )
 
-const AdminTypesIndexLazyRoute = AdminTypesIndexLazyImport.update({
-  id: '/admin/types/',
-  path: '/admin/types/',
+const AdminPenyakitIndexLazyRoute = AdminPenyakitIndexLazyImport.update({
+  id: '/admin/penyakit/',
+  path: '/admin/penyakit/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/admin/types/index.lazy').then((d) => d.Route),
+  import('./routes/admin/penyakit/index.lazy').then((d) => d.Route),
 )
 
-const AdminModelsIndexLazyRoute = AdminModelsIndexLazyImport.update({
-  id: '/admin/models/',
-  path: '/admin/models/',
+const AdminGejalaIndexLazyRoute = AdminGejalaIndexLazyImport.update({
+  id: '/admin/gejala/',
+  path: '/admin/gejala/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/admin/models/index.lazy').then((d) => d.Route),
+  import('./routes/admin/gejala/index.lazy').then((d) => d.Route),
 )
 
-const AdminCarsIndexLazyRoute = AdminCarsIndexLazyImport.update({
-  id: '/admin/cars/',
-  path: '/admin/cars/',
+const AdminPenyakitgejalaCreateLazyRoute =
+  AdminPenyakitgejalaCreateLazyImport.update({
+    id: '/admin/penyakitgejala/create',
+    path: '/admin/penyakitgejala/create',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/admin/penyakitgejala/create.lazy').then((d) => d.Route),
+  )
+
+const AdminPenyakitCreateLazyRoute = AdminPenyakitCreateLazyImport.update({
+  id: '/admin/penyakit/create',
+  path: '/admin/penyakit/create',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/admin/cars/index.lazy').then((d) => d.Route),
+  import('./routes/admin/penyakit/create.lazy').then((d) => d.Route),
 )
 
-const AdminTypesCreateLazyRoute = AdminTypesCreateLazyImport.update({
-  id: '/admin/types/create',
-  path: '/admin/types/create',
+const AdminGejalaCreateLazyRoute = AdminGejalaCreateLazyImport.update({
+  id: '/admin/gejala/create',
+  path: '/admin/gejala/create',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/admin/types/create.lazy').then((d) => d.Route),
+  import('./routes/admin/gejala/create.lazy').then((d) => d.Route),
 )
 
-const AdminModelsCreateLazyRoute = AdminModelsCreateLazyImport.update({
-  id: '/admin/models/create',
-  path: '/admin/models/create',
+const AdminPenyakitEditIdLazyRoute = AdminPenyakitEditIdLazyImport.update({
+  id: '/admin/penyakit/edit/$id',
+  path: '/admin/penyakit/edit/$id',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/admin/models/create.lazy').then((d) => d.Route),
+  import('./routes/admin/penyakit/edit/$id.lazy').then((d) => d.Route),
 )
 
-const AdminCarsCreateLazyRoute = AdminCarsCreateLazyImport.update({
-  id: '/admin/cars/create',
-  path: '/admin/cars/create',
+const AdminGejalaEditIdLazyRoute = AdminGejalaEditIdLazyImport.update({
+  id: '/admin/gejala/edit/$id',
+  path: '/admin/gejala/edit/$id',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/admin/cars/create.lazy').then((d) => d.Route),
-)
-
-const AdminCarsIdLazyRoute = AdminCarsIdLazyImport.update({
-  id: '/admin/cars/$id',
-  path: '/admin/cars/$id',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/admin/cars/$id.lazy').then((d) => d.Route),
-)
-
-const AdminTypesEditIdLazyRoute = AdminTypesEditIdLazyImport.update({
-  id: '/admin/types/edit/$id',
-  path: '/admin/types/edit/$id',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/admin/types/edit/$id.lazy').then((d) => d.Route),
-)
-
-const AdminModelsEditIdLazyRoute = AdminModelsEditIdLazyImport.update({
-  id: '/admin/models/edit/$id',
-  path: '/admin/models/edit/$id',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/admin/models/edit/$id.lazy').then((d) => d.Route),
-)
-
-const AdminCarsEditIdLazyRoute = AdminCarsEditIdLazyImport.update({
-  id: '/admin/cars/edit/$id',
-  path: '/admin/cars/edit/$id',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/admin/cars/edit/$id.lazy').then((d) => d.Route),
+  import('./routes/admin/gejala/edit/$id.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
@@ -197,13 +182,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SearchLazyImport
       parentRoute: typeof rootRoute
     }
-    '/cars/$id': {
-      id: '/cars/$id'
-      path: '/cars/$id'
-      fullPath: '/cars/$id'
-      preLoaderRoute: typeof CarsIdLazyImport
-      parentRoute: typeof rootRoute
-    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
@@ -211,74 +189,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/cars/$id': {
-      id: '/admin/cars/$id'
-      path: '/admin/cars/$id'
-      fullPath: '/admin/cars/$id'
-      preLoaderRoute: typeof AdminCarsIdLazyImport
+    '/admin/gejala/create': {
+      id: '/admin/gejala/create'
+      path: '/admin/gejala/create'
+      fullPath: '/admin/gejala/create'
+      preLoaderRoute: typeof AdminGejalaCreateLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/cars/create': {
-      id: '/admin/cars/create'
-      path: '/admin/cars/create'
-      fullPath: '/admin/cars/create'
-      preLoaderRoute: typeof AdminCarsCreateLazyImport
+    '/admin/penyakit/create': {
+      id: '/admin/penyakit/create'
+      path: '/admin/penyakit/create'
+      fullPath: '/admin/penyakit/create'
+      preLoaderRoute: typeof AdminPenyakitCreateLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/models/create': {
-      id: '/admin/models/create'
-      path: '/admin/models/create'
-      fullPath: '/admin/models/create'
-      preLoaderRoute: typeof AdminModelsCreateLazyImport
+    '/admin/penyakitgejala/create': {
+      id: '/admin/penyakitgejala/create'
+      path: '/admin/penyakitgejala/create'
+      fullPath: '/admin/penyakitgejala/create'
+      preLoaderRoute: typeof AdminPenyakitgejalaCreateLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/types/create': {
-      id: '/admin/types/create'
-      path: '/admin/types/create'
-      fullPath: '/admin/types/create'
-      preLoaderRoute: typeof AdminTypesCreateLazyImport
+    '/admin/gejala/': {
+      id: '/admin/gejala/'
+      path: '/admin/gejala'
+      fullPath: '/admin/gejala'
+      preLoaderRoute: typeof AdminGejalaIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/cars/': {
-      id: '/admin/cars/'
-      path: '/admin/cars'
-      fullPath: '/admin/cars'
-      preLoaderRoute: typeof AdminCarsIndexLazyImport
+    '/admin/penyakit/': {
+      id: '/admin/penyakit/'
+      path: '/admin/penyakit'
+      fullPath: '/admin/penyakit'
+      preLoaderRoute: typeof AdminPenyakitIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/models/': {
-      id: '/admin/models/'
-      path: '/admin/models'
-      fullPath: '/admin/models'
-      preLoaderRoute: typeof AdminModelsIndexLazyImport
+    '/admin/penyakitgejala/': {
+      id: '/admin/penyakitgejala/'
+      path: '/admin/penyakitgejala'
+      fullPath: '/admin/penyakitgejala'
+      preLoaderRoute: typeof AdminPenyakitgejalaIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/types/': {
-      id: '/admin/types/'
-      path: '/admin/types'
-      fullPath: '/admin/types'
-      preLoaderRoute: typeof AdminTypesIndexLazyImport
+    '/admin/gejala/edit/$id': {
+      id: '/admin/gejala/edit/$id'
+      path: '/admin/gejala/edit/$id'
+      fullPath: '/admin/gejala/edit/$id'
+      preLoaderRoute: typeof AdminGejalaEditIdLazyImport
       parentRoute: typeof rootRoute
     }
-    '/admin/cars/edit/$id': {
-      id: '/admin/cars/edit/$id'
-      path: '/admin/cars/edit/$id'
-      fullPath: '/admin/cars/edit/$id'
-      preLoaderRoute: typeof AdminCarsEditIdLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/models/edit/$id': {
-      id: '/admin/models/edit/$id'
-      path: '/admin/models/edit/$id'
-      fullPath: '/admin/models/edit/$id'
-      preLoaderRoute: typeof AdminModelsEditIdLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/types/edit/$id': {
-      id: '/admin/types/edit/$id'
-      path: '/admin/types/edit/$id'
-      fullPath: '/admin/types/edit/$id'
-      preLoaderRoute: typeof AdminTypesEditIdLazyImport
+    '/admin/penyakit/edit/$id': {
+      id: '/admin/penyakit/edit/$id'
+      path: '/admin/penyakit/edit/$id'
+      fullPath: '/admin/penyakit/edit/$id'
+      preLoaderRoute: typeof AdminPenyakitEditIdLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -292,18 +256,15 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileLazyRoute
   '/register': typeof RegisterLazyRoute
   '/search': typeof SearchLazyRoute
-  '/cars/$id': typeof CarsIdLazyRoute
   '/admin': typeof AdminIndexLazyRoute
-  '/admin/cars/$id': typeof AdminCarsIdLazyRoute
-  '/admin/cars/create': typeof AdminCarsCreateLazyRoute
-  '/admin/models/create': typeof AdminModelsCreateLazyRoute
-  '/admin/types/create': typeof AdminTypesCreateLazyRoute
-  '/admin/cars': typeof AdminCarsIndexLazyRoute
-  '/admin/models': typeof AdminModelsIndexLazyRoute
-  '/admin/types': typeof AdminTypesIndexLazyRoute
-  '/admin/cars/edit/$id': typeof AdminCarsEditIdLazyRoute
-  '/admin/models/edit/$id': typeof AdminModelsEditIdLazyRoute
-  '/admin/types/edit/$id': typeof AdminTypesEditIdLazyRoute
+  '/admin/gejala/create': typeof AdminGejalaCreateLazyRoute
+  '/admin/penyakit/create': typeof AdminPenyakitCreateLazyRoute
+  '/admin/penyakitgejala/create': typeof AdminPenyakitgejalaCreateLazyRoute
+  '/admin/gejala': typeof AdminGejalaIndexLazyRoute
+  '/admin/penyakit': typeof AdminPenyakitIndexLazyRoute
+  '/admin/penyakitgejala': typeof AdminPenyakitgejalaIndexLazyRoute
+  '/admin/gejala/edit/$id': typeof AdminGejalaEditIdLazyRoute
+  '/admin/penyakit/edit/$id': typeof AdminPenyakitEditIdLazyRoute
 }
 
 export interface FileRoutesByTo {
@@ -312,18 +273,15 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileLazyRoute
   '/register': typeof RegisterLazyRoute
   '/search': typeof SearchLazyRoute
-  '/cars/$id': typeof CarsIdLazyRoute
   '/admin': typeof AdminIndexLazyRoute
-  '/admin/cars/$id': typeof AdminCarsIdLazyRoute
-  '/admin/cars/create': typeof AdminCarsCreateLazyRoute
-  '/admin/models/create': typeof AdminModelsCreateLazyRoute
-  '/admin/types/create': typeof AdminTypesCreateLazyRoute
-  '/admin/cars': typeof AdminCarsIndexLazyRoute
-  '/admin/models': typeof AdminModelsIndexLazyRoute
-  '/admin/types': typeof AdminTypesIndexLazyRoute
-  '/admin/cars/edit/$id': typeof AdminCarsEditIdLazyRoute
-  '/admin/models/edit/$id': typeof AdminModelsEditIdLazyRoute
-  '/admin/types/edit/$id': typeof AdminTypesEditIdLazyRoute
+  '/admin/gejala/create': typeof AdminGejalaCreateLazyRoute
+  '/admin/penyakit/create': typeof AdminPenyakitCreateLazyRoute
+  '/admin/penyakitgejala/create': typeof AdminPenyakitgejalaCreateLazyRoute
+  '/admin/gejala': typeof AdminGejalaIndexLazyRoute
+  '/admin/penyakit': typeof AdminPenyakitIndexLazyRoute
+  '/admin/penyakitgejala': typeof AdminPenyakitgejalaIndexLazyRoute
+  '/admin/gejala/edit/$id': typeof AdminGejalaEditIdLazyRoute
+  '/admin/penyakit/edit/$id': typeof AdminPenyakitEditIdLazyRoute
 }
 
 export interface FileRoutesById {
@@ -333,18 +291,15 @@ export interface FileRoutesById {
   '/profile': typeof ProfileLazyRoute
   '/register': typeof RegisterLazyRoute
   '/search': typeof SearchLazyRoute
-  '/cars/$id': typeof CarsIdLazyRoute
   '/admin/': typeof AdminIndexLazyRoute
-  '/admin/cars/$id': typeof AdminCarsIdLazyRoute
-  '/admin/cars/create': typeof AdminCarsCreateLazyRoute
-  '/admin/models/create': typeof AdminModelsCreateLazyRoute
-  '/admin/types/create': typeof AdminTypesCreateLazyRoute
-  '/admin/cars/': typeof AdminCarsIndexLazyRoute
-  '/admin/models/': typeof AdminModelsIndexLazyRoute
-  '/admin/types/': typeof AdminTypesIndexLazyRoute
-  '/admin/cars/edit/$id': typeof AdminCarsEditIdLazyRoute
-  '/admin/models/edit/$id': typeof AdminModelsEditIdLazyRoute
-  '/admin/types/edit/$id': typeof AdminTypesEditIdLazyRoute
+  '/admin/gejala/create': typeof AdminGejalaCreateLazyRoute
+  '/admin/penyakit/create': typeof AdminPenyakitCreateLazyRoute
+  '/admin/penyakitgejala/create': typeof AdminPenyakitgejalaCreateLazyRoute
+  '/admin/gejala/': typeof AdminGejalaIndexLazyRoute
+  '/admin/penyakit/': typeof AdminPenyakitIndexLazyRoute
+  '/admin/penyakitgejala/': typeof AdminPenyakitgejalaIndexLazyRoute
+  '/admin/gejala/edit/$id': typeof AdminGejalaEditIdLazyRoute
+  '/admin/penyakit/edit/$id': typeof AdminPenyakitEditIdLazyRoute
 }
 
 export interface FileRouteTypes {
@@ -355,18 +310,15 @@ export interface FileRouteTypes {
     | '/profile'
     | '/register'
     | '/search'
-    | '/cars/$id'
     | '/admin'
-    | '/admin/cars/$id'
-    | '/admin/cars/create'
-    | '/admin/models/create'
-    | '/admin/types/create'
-    | '/admin/cars'
-    | '/admin/models'
-    | '/admin/types'
-    | '/admin/cars/edit/$id'
-    | '/admin/models/edit/$id'
-    | '/admin/types/edit/$id'
+    | '/admin/gejala/create'
+    | '/admin/penyakit/create'
+    | '/admin/penyakitgejala/create'
+    | '/admin/gejala'
+    | '/admin/penyakit'
+    | '/admin/penyakitgejala'
+    | '/admin/gejala/edit/$id'
+    | '/admin/penyakit/edit/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -374,18 +326,15 @@ export interface FileRouteTypes {
     | '/profile'
     | '/register'
     | '/search'
-    | '/cars/$id'
     | '/admin'
-    | '/admin/cars/$id'
-    | '/admin/cars/create'
-    | '/admin/models/create'
-    | '/admin/types/create'
-    | '/admin/cars'
-    | '/admin/models'
-    | '/admin/types'
-    | '/admin/cars/edit/$id'
-    | '/admin/models/edit/$id'
-    | '/admin/types/edit/$id'
+    | '/admin/gejala/create'
+    | '/admin/penyakit/create'
+    | '/admin/penyakitgejala/create'
+    | '/admin/gejala'
+    | '/admin/penyakit'
+    | '/admin/penyakitgejala'
+    | '/admin/gejala/edit/$id'
+    | '/admin/penyakit/edit/$id'
   id:
     | '__root__'
     | '/'
@@ -393,18 +342,15 @@ export interface FileRouteTypes {
     | '/profile'
     | '/register'
     | '/search'
-    | '/cars/$id'
     | '/admin/'
-    | '/admin/cars/$id'
-    | '/admin/cars/create'
-    | '/admin/models/create'
-    | '/admin/types/create'
-    | '/admin/cars/'
-    | '/admin/models/'
-    | '/admin/types/'
-    | '/admin/cars/edit/$id'
-    | '/admin/models/edit/$id'
-    | '/admin/types/edit/$id'
+    | '/admin/gejala/create'
+    | '/admin/penyakit/create'
+    | '/admin/penyakitgejala/create'
+    | '/admin/gejala/'
+    | '/admin/penyakit/'
+    | '/admin/penyakitgejala/'
+    | '/admin/gejala/edit/$id'
+    | '/admin/penyakit/edit/$id'
   fileRoutesById: FileRoutesById
 }
 
@@ -414,18 +360,15 @@ export interface RootRouteChildren {
   ProfileLazyRoute: typeof ProfileLazyRoute
   RegisterLazyRoute: typeof RegisterLazyRoute
   SearchLazyRoute: typeof SearchLazyRoute
-  CarsIdLazyRoute: typeof CarsIdLazyRoute
   AdminIndexLazyRoute: typeof AdminIndexLazyRoute
-  AdminCarsIdLazyRoute: typeof AdminCarsIdLazyRoute
-  AdminCarsCreateLazyRoute: typeof AdminCarsCreateLazyRoute
-  AdminModelsCreateLazyRoute: typeof AdminModelsCreateLazyRoute
-  AdminTypesCreateLazyRoute: typeof AdminTypesCreateLazyRoute
-  AdminCarsIndexLazyRoute: typeof AdminCarsIndexLazyRoute
-  AdminModelsIndexLazyRoute: typeof AdminModelsIndexLazyRoute
-  AdminTypesIndexLazyRoute: typeof AdminTypesIndexLazyRoute
-  AdminCarsEditIdLazyRoute: typeof AdminCarsEditIdLazyRoute
-  AdminModelsEditIdLazyRoute: typeof AdminModelsEditIdLazyRoute
-  AdminTypesEditIdLazyRoute: typeof AdminTypesEditIdLazyRoute
+  AdminGejalaCreateLazyRoute: typeof AdminGejalaCreateLazyRoute
+  AdminPenyakitCreateLazyRoute: typeof AdminPenyakitCreateLazyRoute
+  AdminPenyakitgejalaCreateLazyRoute: typeof AdminPenyakitgejalaCreateLazyRoute
+  AdminGejalaIndexLazyRoute: typeof AdminGejalaIndexLazyRoute
+  AdminPenyakitIndexLazyRoute: typeof AdminPenyakitIndexLazyRoute
+  AdminPenyakitgejalaIndexLazyRoute: typeof AdminPenyakitgejalaIndexLazyRoute
+  AdminGejalaEditIdLazyRoute: typeof AdminGejalaEditIdLazyRoute
+  AdminPenyakitEditIdLazyRoute: typeof AdminPenyakitEditIdLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -434,18 +377,15 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileLazyRoute: ProfileLazyRoute,
   RegisterLazyRoute: RegisterLazyRoute,
   SearchLazyRoute: SearchLazyRoute,
-  CarsIdLazyRoute: CarsIdLazyRoute,
   AdminIndexLazyRoute: AdminIndexLazyRoute,
-  AdminCarsIdLazyRoute: AdminCarsIdLazyRoute,
-  AdminCarsCreateLazyRoute: AdminCarsCreateLazyRoute,
-  AdminModelsCreateLazyRoute: AdminModelsCreateLazyRoute,
-  AdminTypesCreateLazyRoute: AdminTypesCreateLazyRoute,
-  AdminCarsIndexLazyRoute: AdminCarsIndexLazyRoute,
-  AdminModelsIndexLazyRoute: AdminModelsIndexLazyRoute,
-  AdminTypesIndexLazyRoute: AdminTypesIndexLazyRoute,
-  AdminCarsEditIdLazyRoute: AdminCarsEditIdLazyRoute,
-  AdminModelsEditIdLazyRoute: AdminModelsEditIdLazyRoute,
-  AdminTypesEditIdLazyRoute: AdminTypesEditIdLazyRoute,
+  AdminGejalaCreateLazyRoute: AdminGejalaCreateLazyRoute,
+  AdminPenyakitCreateLazyRoute: AdminPenyakitCreateLazyRoute,
+  AdminPenyakitgejalaCreateLazyRoute: AdminPenyakitgejalaCreateLazyRoute,
+  AdminGejalaIndexLazyRoute: AdminGejalaIndexLazyRoute,
+  AdminPenyakitIndexLazyRoute: AdminPenyakitIndexLazyRoute,
+  AdminPenyakitgejalaIndexLazyRoute: AdminPenyakitgejalaIndexLazyRoute,
+  AdminGejalaEditIdLazyRoute: AdminGejalaEditIdLazyRoute,
+  AdminPenyakitEditIdLazyRoute: AdminPenyakitEditIdLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -463,18 +403,15 @@ export const routeTree = rootRoute
         "/profile",
         "/register",
         "/search",
-        "/cars/$id",
         "/admin/",
-        "/admin/cars/$id",
-        "/admin/cars/create",
-        "/admin/models/create",
-        "/admin/types/create",
-        "/admin/cars/",
-        "/admin/models/",
-        "/admin/types/",
-        "/admin/cars/edit/$id",
-        "/admin/models/edit/$id",
-        "/admin/types/edit/$id"
+        "/admin/gejala/create",
+        "/admin/penyakit/create",
+        "/admin/penyakitgejala/create",
+        "/admin/gejala/",
+        "/admin/penyakit/",
+        "/admin/penyakitgejala/",
+        "/admin/gejala/edit/$id",
+        "/admin/penyakit/edit/$id"
       ]
     },
     "/": {
@@ -492,41 +429,32 @@ export const routeTree = rootRoute
     "/search": {
       "filePath": "search.lazy.jsx"
     },
-    "/cars/$id": {
-      "filePath": "cars/$id.lazy.jsx"
-    },
     "/admin/": {
       "filePath": "admin/index.lazy.jsx"
     },
-    "/admin/cars/$id": {
-      "filePath": "admin/cars/$id.lazy.jsx"
+    "/admin/gejala/create": {
+      "filePath": "admin/gejala/create.lazy.jsx"
     },
-    "/admin/cars/create": {
-      "filePath": "admin/cars/create.lazy.jsx"
+    "/admin/penyakit/create": {
+      "filePath": "admin/penyakit/create.lazy.jsx"
     },
-    "/admin/models/create": {
-      "filePath": "admin/models/create.lazy.jsx"
+    "/admin/penyakitgejala/create": {
+      "filePath": "admin/penyakitgejala/create.lazy.jsx"
     },
-    "/admin/types/create": {
-      "filePath": "admin/types/create.lazy.jsx"
+    "/admin/gejala/": {
+      "filePath": "admin/gejala/index.lazy.jsx"
     },
-    "/admin/cars/": {
-      "filePath": "admin/cars/index.lazy.jsx"
+    "/admin/penyakit/": {
+      "filePath": "admin/penyakit/index.lazy.jsx"
     },
-    "/admin/models/": {
-      "filePath": "admin/models/index.lazy.jsx"
+    "/admin/penyakitgejala/": {
+      "filePath": "admin/penyakitgejala/index.lazy.jsx"
     },
-    "/admin/types/": {
-      "filePath": "admin/types/index.lazy.jsx"
+    "/admin/gejala/edit/$id": {
+      "filePath": "admin/gejala/edit/$id.lazy.jsx"
     },
-    "/admin/cars/edit/$id": {
-      "filePath": "admin/cars/edit/$id.lazy.jsx"
-    },
-    "/admin/models/edit/$id": {
-      "filePath": "admin/models/edit/$id.lazy.jsx"
-    },
-    "/admin/types/edit/$id": {
-      "filePath": "admin/types/edit/$id.lazy.jsx"
+    "/admin/penyakit/edit/$id": {
+      "filePath": "admin/penyakit/edit/$id.lazy.jsx"
     }
   }
 }

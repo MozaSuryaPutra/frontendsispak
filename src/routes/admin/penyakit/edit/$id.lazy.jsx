@@ -5,22 +5,22 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { getTypeById, updateType } from "../../../../service/carType";
+import { getPenyakitById, updatePenyakit } from "../../../../service/penyakit";
 import { toast } from "react-toastify";
 import Protected from "../../../../components/Auth/Protected";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 
-export const Route = createLazyFileRoute("/admin/types/edit/$id")({
+export const Route = createLazyFileRoute("/admin/penyakit/edit/$id")({
   component: () => (
     <Protected roles={[1]}>
-      <EditTypes />
+      <EditsPenyakit />
     </Protected>
   ),
 });
 
-function EditTypes() {
+function EditsPenyakit() {
   const navigate = useNavigate();
   const { id } = Route.useParams();
   const [nama, setnama] = useState("");
@@ -29,8 +29,8 @@ function EditTypes() {
   const { token } = useSelector((state) => state.auth);
 
   const { data, isSuccess, isLoading } = useQuery({
-    queryKey: ["types", id],
-    queryFn: () => getTypeById(id),
+    queryKey: ["penyakit", id],
+    queryFn: () => getPenyakitById(id),
     enabled: !!token,
     retry: 0,
   });
@@ -43,13 +43,13 @@ function EditTypes() {
     }
   }, [data, isSuccess]);
 
-  const { mutate: editCarType } = useMutation({
+  const { mutate: editPenyakit } = useMutation({
     mutationFn: (body) => {
-      return updateType(id, body);
+      return updatePenyakit(id, body);
     },
     onSuccess: () => {
       toast.success("Type edited successfully!");
-      navigate({ to: "/admin/types" });
+      navigate({ to: "/admin/penyakit" });
     },
     onError: (err) => {
       toast.error(err?.message);
@@ -66,7 +66,7 @@ function EditTypes() {
       solusi: solusi,
     };
 
-    editCarType(result);
+    editPenyakit(result);
   };
 
   // Handling loading state
@@ -84,7 +84,7 @@ function EditTypes() {
             marginRight: "auto",
           }}
           onClick={() => {
-            navigate({ to: "/admin/types" });
+            navigate({ to: "/admin/penyakit" });
           }}
         >
           Back

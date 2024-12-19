@@ -102,7 +102,7 @@ const SideBar = () => {
             </li>
             <li>
               <Link
-                to="/admin/cars"
+                to="/admin/penyakitgejala"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -125,7 +125,7 @@ const SideBar = () => {
             </li>
             <li>
               <Link
-                to="/admin/models"
+                to="/admin/gejala"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -148,7 +148,7 @@ const SideBar = () => {
             </li>
             <li>
               <Link
-                to="/admin/types"
+                to="/admin/penyakit"
                 style={{
                   display: "flex",
                   alignItems: "center",

@@ -5,23 +5,23 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { getType } from "../../../../service/carType";
-import { getModelsById, updateModels } from "../../../../service/models";
+import { getPenyakit } from "../../../../service/penyakit";
+import { getGejalaById, updateGejala } from "../../../../service/gejala";
 import Protected from "../../../../components/Auth/Protected";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 
-export const Route = createLazyFileRoute("/admin/models/edit/$id")({
+export const Route = createLazyFileRoute("/admin/gejala/edit/$id")({
   component: () => (
     <Protected roles={[1]}>
-      <EditModel />
+      <EditsGejala />
     </Protected>
   ),
 });
 
-function EditModel() {
+function EditsGejala() {
   const navigate = useNavigate();
   const { id } = Route.useParams();
   const [nama, setnama] = useState("");
@@ -29,29 +29,29 @@ function EditModel() {
   const { token } = useSelector((state) => state.auth);
 
   const {
-    data: models,
-    isSuccess: modelsisSuccess,
-    isPending: modelsisPending,
+    data: gejala,
+    isSuccess: gejalaisSuccess,
+    isPending: gejalaisPending,
   } = useQuery({
-    queryKey: ["models", id],
-    queryFn: () => getModelsById(id),
+    queryKey: ["gejala", id],
+    queryFn: () => getGejalaById(id),
     enabled: !!token,
     retry: 0,
   });
 
   useEffect(() => {
-    if (modelsisSuccess && models) {
-      setnama(models.nama);
+    if (gejalaisSuccess && gejala) {
+      setnama(gejala.nama);
     }
-  }, [models, modelsisSuccess]);
+  }, [gejala, gejalaisSuccess]);
 
-  const { mutate: editCarsModels } = useMutation({
+  const { mutate: editGejala } = useMutation({
     mutationFn: (body) => {
-      return updateModels(id, body);
+      return updateGejala(id, body);
     },
     onSuccess: () => {
       toast.success("Gejala Sukses Diedit!");
-      navigate({ to: "/admin/models" });
+      navigate({ to: "/admin/gejala" });
     },
     onError: (err) => {
       toast.error(err?.message);
@@ -65,7 +65,7 @@ function EditModel() {
       nama: nama,
     };
 
-    editCarsModels(result);
+    editGejala(result);
   };
 
   return (
@@ -78,7 +78,7 @@ function EditModel() {
             marginRight: "auto",
           }}
           onClick={() => {
-            navigate({ to: "/admin/models" });
+            navigate({ to: "/admin/gejala" });
           }}
         >
           Back
@@ -87,7 +87,7 @@ function EditModel() {
       <Row className="mt-5">
         <Col className="ms-lg-5">
           <Card>
-            <Card.Header className="text-center">Edit Model</Card.Header>
+            <Card.Header className="text-center">Edit Gejala</Card.Header>
             <Card.Body>
               <Form onSubmit={onSubmit}>
                 <Form.Group as={Row} className="mb-3" controlId="nama">
@@ -107,7 +107,7 @@ function EditModel() {
 
                 <div className="d-grid gap-2">
                   <Button type="submit" variant="primary">
-                    Update Model
+                    Update Gejala
                   </Button>
                 </div>
               </Form>
@@ -119,4 +119,4 @@ function EditModel() {
   );
 }
 
-export default EditModel;
+export default EditsGejala;

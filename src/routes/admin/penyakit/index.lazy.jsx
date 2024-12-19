@@ -1,42 +1,43 @@
 import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
+import React from "react";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { useSelector } from "react-redux";
-import { getCars } from "../../../service/cars";
-import GejalaPenyakitTable from "../../../components/GejalaPenyakitTable/GejalaPenyakitTable";
+import { getPenyakit } from "../../../service/penyakit";
 import { useQuery } from "@tanstack/react-query";
+import PenyakitTable from "../../../components/PenyakitTable";
 import Protected from "../../../components/Auth/Protected";
-export const Route = createLazyFileRoute("/admin/cars/")({
+export const Route = createLazyFileRoute("/admin/penyakit/")({
   component: () => (
     <Protected roles={[1]}>
-      <CarsIndex />
+      <Penyakit />
     </Protected>
   ),
 });
 
-function CarsIndex() {
+function Penyakit() {
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.auth);
-  const [gejalaPenyakit, setGejalaPenyakit] = useState([]); // Initialize as empty array
-  const navigate = useNavigate();
 
+  const [penyakit, setPenyakit] = useState([]);
   const { data, isSuccess, isPending } = useQuery({
-    queryKey: ["cars"],
-    queryFn: () => getCars(),
+    queryKey: ["penyakit"],
+    queryFn: () => getPenyakit(),
     enabled: !!token,
   });
 
   useEffect(() => {
     if (isSuccess) {
-      setGejalaPenyakit(data || []); // Ensure data is an array, default to empty if null
+      setPenyakit(data || []);
     }
   }, [data, isSuccess]);
 
   if (!token) {
     navigate({ to: "/login" });
-    return null;
+    return;
   }
 
   if (isPending) {
@@ -46,32 +47,28 @@ function CarsIndex() {
       </Row>
     );
   }
-
   return (
     <div>
       <Row className="mt-4 align-items-center">
-        <h1>List Gejala Penyakit :</h1>
+        <h1>List Penyakit :</h1>
         {user?.role_id === 1 && (
           <Button
             className="me-2"
             style={{ width: "150px", marginLeft: "auto" }}
             onClick={() => {
-              navigate({ to: "/admin/cars/create" });
+              navigate({ to: "/admin/Penyakit/create" });
             }}
           >
-            Buat Gejala Penyakit Baru
+            Buat Penyakit Baru
           </Button>
         )}
       </Row>
 
       <Row className="mt-4">
-        {gejalaPenyakit.length === 0 ? (
-          <h1>Cars not found!</h1>
+        {penyakit.length === 0 ? (
+          <h1>Penyaktit Tidak Ditemukan!</h1>
         ) : (
-          <GejalaPenyakitTable
-            setGejalaPenyakit={setGejalaPenyakit}
-            gejalaPenyakit={gejalaPenyakit}
-          />
+          <PenyakitTable setPenyakit={setPenyakit} penyakit={penyakit} />
         )}
       </Row>
     </div>

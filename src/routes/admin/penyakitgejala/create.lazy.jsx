@@ -7,28 +7,28 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import { toast } from "react-toastify";
-import { getModels } from "../../../service/models";
-import { createCars } from "../../../service/cars";
+import { getGejala } from "../../../service/gejala";
+import { createPenyakitGejala } from "../../../service/penyakitgejala";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Protected from "../../../components/Auth/Protected";
 import { useSelector } from "react-redux";
-import { getType } from "../../../service/carType";
+import { getPenyakit } from "../../../service/penyakit";
 
-// Rute untuk halaman CreateCars
-export const Route = createLazyFileRoute("/admin/cars/create")({
+// Rute untuk halaman CreatePenyakitGejala
+export const Route = createLazyFileRoute("/admin/penyakitgejala/create")({
   component: () => (
     <Protected roles={[1]}>
-      <CreateCars />
+      <CreatesPenyakitGejala />
     </Protected>
   ),
 });
 
 // Komponen untuk membuat mobil baru
-function CreateCars() {
+function CreatesPenyakitGejala() {
   const navigate = useNavigate();
 
   // State untuk input form
-  const [plate, setPlate] = useState("");
+
   const [cf, setCf] = useState(0);
   const [gejala_id, setGejalaId] = useState(0);
   const [penyakit_id, setPenyakitId] = useState(0);
@@ -40,8 +40,8 @@ function CreateCars() {
     isError,
     isSuccess,
   } = useQuery({
-    queryKey: ["models"], // Updated queryKey
-    queryFn: () => getModels(), // Updated queryFn
+    queryKey: ["gejala"], // Updated queryKey
+    queryFn: () => getGejala(), // Updated queryFn
     enabled: !!token, // only run query if there's an id
   });
   const {
@@ -50,19 +50,19 @@ function CreateCars() {
     isError: errorPenyakit,
     isSuccess: suksesPenyakit,
   } = useQuery({
-    queryKey: ["type"], // Updated queryKey
-    queryFn: () => getType(), // Updated queryFn
+    queryKey: ["penyakit"], // Updated queryKey
+    queryFn: () => getPenyakit(), // Updated queryFn
     enabled: !!token, // only run query if there's an id
   });
   // Mutasi untuk membuat mobil baru
-  const { mutate: createCar, isLoading: isCreating } = useMutation({
-    mutationFn: createCars,
+  const { mutate: createsPenyakitGejala, isLoading: isCreating } = useMutation({
+    mutationFn: createPenyakitGejala,
     onSuccess: () => {
       toast.success("Car created successfully!");
-      navigate({ to: "/admin/cars" });
+      navigate({ to: "/admin/penyakitgejala" });
     },
     onError: (error) => {
-      toast.error(error.message || "Failed to create car");
+      toast.error(error.message || "Failed to create Penyakit Gejala");
     },
   });
   console.log("ini request : ", cf, gejala_id, penyakit_id);
@@ -78,7 +78,7 @@ function CreateCars() {
     };
 
     // Menjalankan mutasi untuk membuat mobil
-    createCar(request);
+    createsPenyakitGejala(request);
   };
 
   // Loading dan Error handling untuk query models
@@ -93,7 +93,7 @@ function CreateCars() {
             marginRight: "auto",
           }}
           onClick={() => {
-            navigate({ to: "/admin/cars" });
+            navigate({ to: "/admin/penyakitgejala" });
           }}
         >
           Back
@@ -190,4 +190,4 @@ function CreateCars() {
   );
 }
 
-export default CreateCars;
+export default CreatesPenyakitGejala;

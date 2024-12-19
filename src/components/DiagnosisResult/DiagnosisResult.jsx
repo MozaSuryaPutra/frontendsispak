@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-import { getTypeById } from "../../service/carType";
+import { getPenyakitById } from "../../service/penyakit";
 import { FaExclamationCircle, FaCheckCircle } from "react-icons/fa"; // Menambahkan ikon untuk status
 
 // Component untuk menampilkan hasil diagnosis
@@ -12,7 +12,7 @@ const DiagnosisResult = ({ dataDiagnosis }) => {
   // Memuat data berdasarkan ID diagnosis menggunakan React Query
   const { data, isSuccess, isLoading, isError } = useQuery({
     queryKey: ["types", dataDiagnosis?.penyakit_id],
-    queryFn: () => getTypeById(dataDiagnosis?.penyakit_id),
+    queryFn: () => getPenyakitById(dataDiagnosis?.penyakit_id),
     enabled: !!token && !!dataDiagnosis?.penyakit_id, // Pastikan ID tersedia sebelum melakukan request
     retry: 0,
   });
