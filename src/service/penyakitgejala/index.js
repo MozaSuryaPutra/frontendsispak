@@ -104,34 +104,3 @@ export const deletePenyakitGejala = async (id) => {
   }
   return result;
 };
-
-export const getPenyakitGejalaSearched = async (capacity, availableAt) => {
-  console.log("Capacity:", capacity);
-  console.log("AvailableAt:", availableAt);
-
-  const token = localStorage.getItem("token");
-  let params = new URLSearchParams();
-
-  if (capacity) {
-    params.append("capacity", capacity);
-  }
-  if (availableAt) {
-    params.append("availableAt", availableAt);
-  }
-
-  let url = `${import.meta.env.VITE_API_URL}/gejalaPenyakit/search?${params.toString()}`;
-
-  const response = await fetch(url, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-    method: "GET",
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const result = await response.json();
-  return result?.data;
-};
